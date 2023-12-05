@@ -1,5 +1,35 @@
-template-repository (1.0-1) unstable; urgency=medium
+golang-github-jmhodges-clock (1.0-3.1) unstable; urgency=medium
 
-  * Initial release
+  * Non maintainer upload by the Reproducible Builds team.
+  * No source change upload to rebuild on buildd with .buildinfo files.
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Holger Levsen <holger@debian.org>  Fri, 20 May 2022 23:09:06 +0200
+
+golang-github-jmhodges-clock (1.0-3) unstable; urgency=medium
+
+  * Bump debhelper compat level to 10
+  * Build-depend on golang-any instead of golang-go
+  * Drop dependency on golang-go from -dev package
+  * Update debian/watch to use package name for tarball
+
+ -- Peter Colberg <peter@colberg.org>  Sat, 19 Nov 2016 23:23:45 -0500
+
+golang-github-jmhodges-clock (1.0-2) unstable; urgency=medium
+
+  * Remove Built-Using field from -dev package
+
+ -- Peter Colberg <peter@colberg.org>  Sat, 24 Sep 2016 00:26:04 -0400
+
+golang-github-jmhodges-clock (1.0-1) unstable; urgency=medium
+
+  * New upstream release
+  * Add watch file to track upstream releases
+  * Update Standards-Version to 3.9.8
+
+ -- Peter Colberg <peter@colberg.org>  Sun, 28 Aug 2016 09:06:58 -0400
+
+golang-github-jmhodges-clock (0.0~git20151001.0.3c4ebd2-1) unstable; urgency=medium
+
+  * Initial release (Closes: #817099)
+
+ -- Peter Colberg <peter@colberg.org>  Tue, 08 Mar 2016 09:20:47 -0500
