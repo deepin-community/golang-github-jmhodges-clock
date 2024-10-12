@@ -1,4 +1,4 @@
-Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: github.com/jmhodges/clock
 Upstream-Contact: Jeff Hodges <jeff@somethingsimilar.com>
 Source: https://github.com/jmhodges/clock
@@ -8,7 +8,7 @@ Copyright: 2014-2015 Jeff Hodges <jeff@somethingsimilar.com>
 License: Expat
 
 Files: debian/*
-Copyright: 2016 Peter Colberg <peter@colberg.org>
+Copyright: 2016-2024 Peter Colberg <peter@colberg.org>
 License: Expat
 Comment: Debian packaging is licensed under the same terms as upstream
 

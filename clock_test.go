@@ -28,6 +28,10 @@ func TestFakeClockGoldenPath(t *testing.T) {
 	if clk.Now().Equal(second.Now()) {
 		t.Errorf("clk should have been set forwards (by sleeping): %#v vs %#v", clk.Now(), second.Now())
 	}
+
+	if clk.Since(oldT) != time.Second {
+		t.Errorf("clk should have been set forwards by sleeping: %#v -> %#v (%d)", oldT, clk.Now(), clk.Since(oldT))
+	}
 }
 
 func TestNegativeSleep(t *testing.T) {
@@ -308,7 +312,11 @@ func TestFakeTimerResetStopsOldSends(t *testing.T) {
 }
 
 func TestRealClock(t *testing.T) {
-	clk := Default()
+	clk := New()
+	clk2 := Default()
+	if clk != clk2 {
+		t.Fatalf("New and Default return diffent values")
+	}
 	clk.Now()
 	clk.Sleep(1 * time.Nanosecond)
 	clk.After(1 * time.Nanosecond)
@@ -336,7 +344,7 @@ func immediatelyRecv(c <-chan time.Time) *time.Time {
 }
 
 func ExampleClock() {
-	c := Default()
+	c := New()
 	now := c.Now()
 	fmt.Println(now.UTC().Zone())
 	// Output:
@@ -344,7 +352,7 @@ func ExampleClock() {
 }
 
 func ExampleFakeClock() {
-	c := Default()
+	c := New()
 	fc := NewFake()
 	fc.Add(20 * time.Hour)
 	fc.Add(-5 * time.Minute) // negatives work, as well
