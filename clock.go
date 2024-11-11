@@ -26,13 +26,21 @@ import (
 	"time"
 )
 
-var systemClock Clock = sysClock{}
+// Some in-use reflection-heavy systems, like facebookgo/inject, fail when given
+// a value type like sysClock{}. Since it's hidden by an interface, this has
+// surprised users. We fixed that by making systemClock a &sysClock.
+var systemClock Clock = &sysClock{}
 
-// Default returns a Clock that matches the actual system time.
-func Default() Clock {
+// New returns a Clock that matches the actual system time.
+func New() Clock {
 	// This is a method instead of a public var to prevent folks from
 	// "making things work" by writing to the var instead of passing
 	// in a Clock.
+	return systemClock
+}
+
+// Deprecated: Default is just an alias for New but less memorable.
+func Default() Clock {
 	return systemClock
 }
 
@@ -49,6 +57,9 @@ type Clock interface {
 	// After returns a channel that fires after the given duration.
 	After(time.Duration) <-chan time.Time
 
+	// Since is a short hand for Now().Sub(t).
+	Since(time.Time) time.Duration
+
 	// NewTimer makes a Timer based on this clock's time. Using Timers and
 	// negative durations in the Clock or Timer API is undefined behavior and
 	// may be changed.
@@ -57,19 +68,23 @@ type Clock interface {
 
 type sysClock struct{}
 
-func (s sysClock) Now() time.Time {
+func (s *sysClock) Now() time.Time {
 	return time.Now()
 }
 
-func (s sysClock) Sleep(d time.Duration) {
+func (s *sysClock) Sleep(d time.Duration) {
 	time.Sleep(d)
 }
 
-func (s sysClock) After(d time.Duration) <-chan time.Time {
+func (s *sysClock) After(d time.Duration) <-chan time.Time {
 	return time.After(d)
 }
 
-func (s sysClock) NewTimer(d time.Duration) *Timer {
+func (s *sysClock) Since(t time.Time) time.Duration {
+	return time.Since(t)
+}
+
+func (s *sysClock) NewTimer(d time.Duration) *Timer {
 	tt := time.NewTimer(d)
 	return &Timer{C: tt.C, timer: tt}
 }
@@ -122,6 +137,10 @@ func (f *fake) Sleep(d time.Duration) {
 
 func (f *fake) After(d time.Duration) <-chan time.Time {
 	return f.NewTimer(d).C
+}
+
+func (f *fake) Since(t time.Time) time.Duration {
+	return f.Now().Sub(t)
 }
 
 func (f *fake) NewTimer(d time.Duration) *Timer {
