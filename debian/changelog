@@ -1,9 +1,26 @@
-golang-github-jmhodges-clock (1.0-3.1) unstable; urgency=medium
+golang-github-jmhodges-clock (1.1-1) unstable; urgency=medium
 
-  * Non maintainer upload by the Reproducible Builds team.
-  * No source change upload to rebuild on buildd with .buildinfo files.
+  [ Stephen Gelman ]
+  * Team upload
+  * Bump standards version
+  * Move to golang section
+  * Updatae copyright year
 
- -- Holger Levsen <holger@debian.org>  Fri, 20 May 2022 23:09:06 +0200
+  [ Alexandre Viau ]
+  * Point Vcs-* urls to salsa.debian.org.
+
+  [ Arnaud Rebillout ]
+  * New upstream version 1.1
+  * Bump compat
+  * Update debian copyright url
+  * Set priority to optional
+  * Bump standards-version
+  * Add autopkg testsuite
+  * Add myself to uploaders
+  * Bump debhelper requirement
+  * Remove useless shlibs:Depends from -dev package dependencies
+
+ -- Stephen Gelman <ssgelm@debian.org>  Thu, 07 Mar 2024 01:35:35 -0600
 
 golang-github-jmhodges-clock (1.0-3) unstable; urgency=medium
 
